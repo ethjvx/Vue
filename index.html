@@ -29,14 +29,33 @@
     <script src="vue.js"></script>
     <script src="axios.js"></script>
     <script>
-        axios.defaults.baseURL = 'https://developer.duyiedu.com/vue';
+        axios.interceptors.request.use(config => {
+            console.log(config);
+            return config
+        }, error => {
 
-        const instance = axios.create({
-            baseURL: 'https://developer.duyiedu.com/vue'
-        });
+            return Promise.reject(error);
+        })
+        
+        axios.interceptors.response.use(response => {
+            console.log(response);
+            if (response.status === 200) {
+                return response.data;
+            } else {
+                console.log("错误")
+            }
+        }, error => {
+            if (error.response) {
+                console.log('响应时错误');
+            } else if (error.request) {
+                // 请求时错误
+                console.log('请求时错误');
+            }
+            return Promise.reject(error);
+        })
 
+        axios.defaults.baseURL = 'https://developer.duyiedu.com/vue'
 
-        axios.default.timeout = 1000;
         const vm = new Vue({
             el: "#app",
             data: {
@@ -46,54 +65,36 @@
                 personList: []
             },
             methods: {
-                handleUpload() {
-                    const {
-                        name,
-                        mail
-                    } = this;
-                    // axios.post('/setUserInfo', {name, mail
-                    // }, {
-                    //     baseURL: 'https://developer.duyiedu.com/vue',
-                    // }).then(res => {
-                    //     this.msg = res.data.msg;
-                    //     alert(res.data.msg)
-                    // })
-                    axios.post('/setUserInfo', {
-                        name,
-                        mail
-                    }).then(res => {
-                        this.msg = res.data.msg;
-                    })
-                },
+                handleUpload() {},
                 handleShow() {
-                    // axios({
-                    //     methods: 'get',
-                    //     baseURL: 'https://developer.duyiedu.com/vue',
-                    //     url: '/getUserInfo'
-                    // }).then(res => {
-                    //     this.msg = res.data;
-                    //     this.personList = res.data.data;
-                    //     console.log(res.data)
-                    // })
+                    axios.get('/getUserInfo').then(res => {
+                        console.log(res);
+                    }).catch(error => {
+                        console.log(error.request); //请求时错误
+                        console.log(error.response); //响应时错误
+                        if (error.response) {
+                            const {
+                                status
+                            } = error.response;
 
+                            switch (status) {
+                                case 404:
+                                    alert('url地址错误');
+                                    break;
+                                case 401:
+                                    alert('xxx')
 
-                    // axios.get('/getUserInfo',{
-                    //     baseURL: 'https://developer.duyiedu.com/vue'
-                    // }).then(res => {
-                    //     this.msg = res.data;
-                    //     this.personList = res.data.data;
-                    // })
-
-                    // axios.get('/getUserInfo').then(res => {
-                    //     this.msg = res.data;
-                    //     this.personList = res.data.data;
-                    // })
-
-                    instance.get('/getUserInfo').then(res => {
-                        this.msg = res.data;
-                        this.personList = res.data.data;
-                    })
+                            }
+                        } else if (error.response) {
+                            console.log('请求时错误');
+                        } else {
+                            console.log(error.message);
+                        }
+                    });
                 },
+                handleCancelGet() {
+                    source.cancel('取消请求');
+                }
             },
             watch: {
                 msg() {
