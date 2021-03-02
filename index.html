@@ -2,111 +2,89 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
 </head>
 
 <body>
-    <div id="app">
-        <div class="username">
-            <input type="text" placeholder="用户名" v-model="name">
-        </div>
-        <div class="mail">
-            <input type="mail" placeholder="邮箱" v-model="mail">
-        </div>
-        <div class="upload-btn" @click="handleUpload">上传</div>
-        <div class="show-btn" @click="handleShow">显示人物信息</div>
-        <ul class="person-list" v-if="personList.length">
-            <li class="person" v-for="person in personList">
-                <span>{{ person.name }}</span>
-                <span>{{ person.mail }}</span>
-            </li>
-        </ul>
-    </div>
 
-    <script src="vue.js"></script>
-    <script src="axios.js"></script>
-    <script>
-        axios.interceptors.request.use(config => {
-            console.log(config);
-            return config
-        }, error => {
+  <div id="app">{{ msg }}</div>
 
-            return Promise.reject(error);
-        })
-        
-        axios.interceptors.response.use(response => {
-            console.log(response);
-            if (response.status === 200) {
-                return response.data;
-            } else {
-                console.log("错误")
-            }
-        }, error => {
-            if (error.response) {
-                console.log('响应时错误');
-            } else if (error.request) {
-                // 请求时错误
-                console.log('请求时错误');
-            }
-            return Promise.reject(error);
-        })
+  <script>
+    // 创建、挂载、更新、销毁
+    // crated mounted 
+    
+    // beforeDestory
 
-        axios.defaults.baseURL = 'https://developer.duyiedu.com/vue'
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello world'
+      },
+      methods: {
+        handle () {
+          console.log('xx');
+        }
+      },
+      watch: {
+        msg: {
+          handler () {
+            console.log('偵聽msg的值')
+          },
+          immediate: true
+        }
+      },
+      beforeCreate () {
+        this.timer = setInterval(() => {
+          console.log(1);
+        }, 1000)
 
-        const vm = new Vue({
-            el: "#app",
-            data: {
-                name: '',
-                mail: '',
-                msg: '',
-                personList: []
-            },
-            methods: {
-                handleUpload() {},
-                handleShow() {
-                    axios.get('/getUserInfo').then(res => {
-                        console.log(res);
-                    }).catch(error => {
-                        console.log(error.request); //请求时错误
-                        console.log(error.response); //响应时错误
-                        if (error.response) {
-                            const {
-                                status
-                            } = error.response;
+        console.log(this.msg);
+        console.log(this.handle);
+        console.log('-----beforeCreate-----');
+      },
+      created () {
+        console.log(this.msg);
+        console.log(this.handle);
+        console.log(this.$el);
+        console.log('-----created------');
+      },
+      beforeMount () {
+        console.log(this.$el);
+        console.log('------beforeMount-----');
+      },
+      mounted () {
+        console.log(this.$el);
+        console.log('-----------mounted-----------');
+      },
+      beforeUpdate () {
+        console.log(this.msg);
+        console.log(this.$el.outerHTML);
+        console.log('-----beforeUpdate----');
+      },
+      updated () {
+        console.log(this.msg);
+        console.log(this.$el.outerHTML);
+        console.log('------updated------');
+      },
+      beforeDestroy () {
+        clearInterval(this.timer);
+        console.log('-----beforeDestroy----');
+      },
+      destroyed () {
+        console.log('-----destroyed-----');
+      },
+    })
 
-                            switch (status) {
-                                case 404:
-                                    alert('url地址错误');
-                                    break;
-                                case 401:
-                                    alert('xxx')
+    const a = {};
 
-                            }
-                        } else if (error.response) {
-                            console.log('请求时错误');
-                        } else {
-                            console.log(error.message);
-                        }
-                    });
-                },
-                handleCancelGet() {
-                    source.cancel('取消请求');
-                }
-            },
-            watch: {
-                msg() {
-                    if (this.msg === '') {
-                        return;
-                    }
-                    alert(this.msg);
-                    this.msg = '';
-                }
-            }
-        })
-    </script>
+    // console.log(a);
+
+    a.haha = 'haha';
+  </script>
 </body>
 
 </html>
