@@ -1,68 +1,308 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  list-style: none;
+body,
+html {
+    height: 100%;
 }
 
 #app {
-  position: relative;
-  width: 284px;
-  margin: 50px auto;
+    height: 100%;
+    overflow-y: scroll;
 }
 
-.username,
-.mail {
-  width: 284px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  color: #666;
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background-color: #fff;
+    z-index: 3;
 }
 
-.username input,
-.mail input {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: 10px 8px;
-  border: none;
-  outline: none;
+.header .logo {
+    margin-left: 18px;
 }
 
-.upload-btn,
-.show-btn,
-.test-btn {
-  width: 284px;
-  height: 40px;
-  margin-bottom: 10px;
-  line-height: 40px;
-  color: #fff;
-  background-color: #3f89ec;
-  border-radius: 3px;
-  text-align: center;
-  cursor: pointer;
+.header .search-input {
+    width: 132px;
+    height: 24px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    color: #999;
+    background-color: #f4f4f4;
+    border-radius: 12px;
 }
 
-.person-list {
-  width: 284px;
-  border: 1px solid #ddd;
-  border-bottom: none;
+.header .search-input svg {
+    margin-left: 10px;
 }
 
-.person {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-  font-size: 12px;
+.header .search-input span {
+    padding: 5px 0;
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.person span:first-of-type {
-  padding-right: 8px;
-  border-right: 1px solid #ddd;
+.header .avatar svg {
+    border-radius: 50%;
 }
 
-.person span:last-of-type {
-  padding-left: 8px;
+
+.header .download-app {
+    width: 70px;
+    height: 23px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 12px;
+    line-height: 23px;
+    text-align: center;
+    color: #eee;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+
+.nav-box {
+    position: fixed;
+    top: 54px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.nav-box .nav-list {
+    /* display: none; */
+    width: 85%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    padding-left: 24px;
+}
+
+.nav-box .nav-list::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-box .nav {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 40px;
+    color: #757575;
+    font-size: 14px;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-box .nav.active {
+    border-color: #fb7299;
+    color: #fb7299;
+}
+
+.nav-box .down {
+    position: absolute;
+    right: 10px;
+    top: -3px;
+
+}
+
+.hide-nav-box {
+    position: fixed;
+    top: 54px;
+    left: 0;
+    right: 0;
+    padding-bottom: 20px;
+    border: none;
+    transition: top .5s;
+    background-color: #fff;
+    z-index: 2;
+}
+
+.hide-nav-box.hide {
+    /* display: none;  */
+    top: -117px;
+}
+
+.hide-nav-box .nav-list {}
+
+.hide-nav-box .nav {
+    display: inline-block;
+    width: 32px;
+    margin-left: 14px;
+    margin-right: 14px;
+    margin-bottom: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 14px;
+    color: #757575;
+
+    border-bottom: 2px solid transparent;
+}
+
+.hide-nav-box .nav.big {
+    width: 46px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.hide-nav-box .nav.active {
+    border-color: #fb7299;
+    color: #fb7299;
+}
+
+.hide-nav-box .up {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    translate: (-50%);
+}
+
+.banner-box {
+    position: relative;
+    width: 350px;
+    height: 110px;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.banner-box .banner-list {
+    width: calc(350px * 3);
+    position: absolute;
+    transition: left .3s;
+
+}
+
+.banner-box .banner {
+    float: left;
+    width: 350px;
+    height: 110px;
+}
+
+.banner-box .poster {
+    width: 100%;
+    height: 100%;
+}
+
+.banner-box .index-list {
+    position: absolute;
+    left: 50%;
+    bottom: 3px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    transform: translate(-50%);
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.banner-box .index {
+    /* display: inline-block; */
+    width: 7px;
+    height: 7px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border-radius: 50%;
+    vertical-align: middle;
+    background-color: #fff;
+}
+
+.banner-box .index.active {
+    background-color: #fb7299;
+}
+
+.video-box {
+    padding-top: 100px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+}
+
+.video-box .video-list {}
+
+.video-box .video-list::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.video-box .video {
+    float: left;
+    width: 50%;
+}
+
+.video-box .poster {
+    position: relative;
+    height: 106px;
+    margin-right: 6px;
+    margin-left: 6px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.video-box .poster img {
+    width: 100%;
+    height: 100%;
+}
+
+.video-box .poster .info {
+    position: absolute;
+    height: 20px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    color: #fff;
+    background-image: linear-gradient(rgba(33, 33, 33, 0), rgba(33, 33, 33, .5));
+}
+
+.video-box .info div {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.video .info svg {
+    width: 14px;
+    height: 14px;
+    fill: #fff;
+}
+
+.video-box .title {
+    margin: 6px 6px 10px 6px;
+    height: 38px;
+    line-height: 20px;
+    font-size: 13px;
+    /* 多行文本溢出打点： */
+    overflow: hidden;
+    /* 设置盒子为伸缩盒 */
+    display: -webkit-box;
+    /* 设置伸缩盒内子元素的排列方式为vertical */
+    -webkit-box-orient: vertical;
+    /* 限制一个块元素内显示的文本行数 */
+    -webkit-line-clamp: 2;
+}
+
+
+.footer {
+    margin-top: 40px;
+}
+
+.footer p {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #999;
 }
