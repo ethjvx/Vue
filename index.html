@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cmp-1></cmp-1>
+        <cmp-2></cmp-2>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+
+        var mixin = {
+            data(){
+                return {
+                    a:'a'
+                }
+            }
+        }
+
+        Vue.component("cmp-1", {
+            mixins: [mixin],
+            data() {
+                return {
+                    // a: 'a'
+                }
+            },
+            mounted() {
+                console.log(this.a);
+            },
+            template:`
+                <div>cmp-1</div>
+            `,
+        })
+
+        Vue.component("cmp-2", {
+            mixins: [mixin],
+            data() {
+                return {
+                    b: 'b'
+                }
+            },
+            mounted() {
+                console.log(this.b);
+            },
+            template:`
+                <div>cmp-2</div>
+            `,
+        })
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
