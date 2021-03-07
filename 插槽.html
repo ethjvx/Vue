@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <my-cmp>{{ name }}</my-cmp> -->
+        <!-- <my-cmp1>
+            <template v-slot:default="slotProps">
+              {{ slotProps.user.name }}
+            </template>
+          </my-cmp1> -->
+          <my-cmp1 v-slot="{user}">
+              {{ user.name }}
+          </my-cmp1>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+       
+        Vue.component('my-cmp', {
+            data() {
+                return {
+                    name: '啦啦啦'
+                }
+            },
+            template: `
+                <div>xxx {{ name }}
+                    <slot></slot>    
+                </div>
+            `
+        })
+
+
+        Vue.component('my-cmp1', {
+            data() {
+                return {
+                    user: {
+                        name: '杉杉',
+                        age: 18,
+                    }
+                }
+            },
+            template: `
+                <span>
+                    <slot v-bind:user="user"></slot>
+                </span>
+            `,
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'aaa'
+            }
+        })
+    </script>
+</body>
+
+</html>

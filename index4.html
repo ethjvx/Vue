@@ -10,54 +10,23 @@
 
 <body>
     <div id="app">
-        <!-- <div :style="{fontSize: postFontSize + 'em'}">
-            <blog-post v-for="post in posts" :key="post.id" @enlarge-text.native="postFontSize += 0.1" :post="post"></blog-post>
-
-        </div> -->
-
-        <!-- <base-input @focus="onFocus" @blur="onBlur"></base-input> -->
-
-        <base-input1 :value="name" @input="name = $event"></base-input1>
+        <base-input2 :value.sync="name"></base-input2>
     </div>
 
     <script src="vue.js"></script>
     <script>
-        Vue.component('base-input1', {
+        Vue.component('base-input2', {
             props: {
                 value: String
             },
             template: `
-            <label>
-                姓名
-                <input type="text" :value="value" @input="$emit('input', $event.target.value)" />
-            </label>
-            `
+        <label>
+          姓名：
+          <input type="text" :value="value" @input="$emit('update:value', $event.target.value)"/>
+        </label>
+      `
         })
 
-        Vue.component('base-input', {
-            mounted() {
-                console.log(this.$listeners);
-            },
-            template: `
-            <label>
-                姓名
-                <input type="text" v-on="$listeners" />
-            </label>
-            `
-        })
-
-        Vue.component('blog-post', {
-            props: {
-                post: Object,
-            },
-            template: `
-                <div>
-                    <h3>{{ post.title }}</h3>
-                    <button @click="$emit('enlarge-text', 0.2)"> 放大字号</button>
-                    <div>{{ post.content }}</div>
-                </div>
-            `,
-        })
 
         const vm = new Vue({
             el: "#app",
@@ -76,7 +45,7 @@
                     content: "博客内容",
                     id: 2
                 }],
-                name:"啦啦啦"
+                name: "啦啦啦"
             },
             methods: {
                 onEnlargeText(e) {
