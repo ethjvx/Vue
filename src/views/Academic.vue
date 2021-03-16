@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <router-link
+      <router-link 
         tag="li"
         v-for="question in questionList"
         :key="question.id"
@@ -15,19 +15,19 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       questionList: []
-    };
+    }
   },
-  mounted() {
-    this.$axios.get("/question").then(res => {
+  mounted () {
+    this.$axios.get('/question').then(res => {
       this.questionList = res;
-      // console.log(res)
     });
   }
-};
+}
 </script>
+
 <style scoped>
 li {
   margin-bottom: 15px;

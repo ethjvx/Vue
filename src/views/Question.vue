@@ -18,13 +18,25 @@
 
 <script>
 export default {
+  beforeRouteUpdate (to, from, next) {
+    next();
+  },
+  // beforeRouteLeave (to, from, next) {
+  //   // const isGo = window.confirm('真的要走吗，不再看看了？');
+  //   // isGo ? next() : next(false);
+  // },
+  props: {
+    id: {
+      type: [String, Number],
+    },
+  },
   data () {
     return {
       question: null,
     }
   },
   mounted () {
-    // this.getData();
+    
   },
   computed: {
     otherQuestionList () {
@@ -55,17 +67,17 @@ export default {
   },
   methods: {
     handleClick (id) {
-      const { name } = this.$route;
 
       this.$router.push({
-        name,
+        name: 'question',
         params: {
           id,
         }
       });
     },
     getData () {
-      const { id } = this.$route.params;
+      // const { id } = this.$route.params;
+      const { id } = this;
 
       this.$axios.get(`/question/${id}`).then(res => {
         this.question = res;

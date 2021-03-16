@@ -2,9 +2,7 @@
   <div id="app">
 
     <div class="nav-box">
-      <div class="logo" @click="handleClick">渡一教育</div>
-      <!-- <router-link to="/home" tag="div" class="logo">渡一教育</router-link> -->
-
+      <div class="logo" @click="handleClick">啦啦啦</div>
       <div class="nav-list">
         <router-link to="/home">首页</router-link>
         <router-link to="/learn">课程学习</router-link>
@@ -15,6 +13,7 @@
     </div>
     <div class="container">
       <router-view></router-view>
+      <router-view name="student"></router-view>
     </div>
   </div>
 </template>
@@ -27,27 +26,13 @@ export default {
   },
   methods: {
     handleClick () {
-      // push 
       this.$router.push('/home');
-
-      // replace
-      // this.$router.replace('/home');
-
-      // go
-      // this.$router.go(0);
-
-      // console.log(this.$route);
     }
   },
 }
 </script>
 
 <style scoped>
-
-body {
-  margin-top: 0;
-}
-
 .nav-box {
   display: flex;
   justify-content: space-between;
@@ -64,10 +49,6 @@ body {
   margin-left: 40px;
   color: #fff;
   text-decoration: none;
-}
-
-.nav-list a.router-link-exact-active {
-  font-weight: bold;
 }
 
 .nav-list a.router-link-active {
